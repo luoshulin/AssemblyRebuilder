@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27406.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssemblyRebuilder", "AssemblyRebuilder\AssemblyRebuilder.csproj", "{8DDC6D0E-B790-489A-8C13-445023B43715}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8DDC6D0E-B790-489A-8C13-445023B43715}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8DDC6D0E-B790-489A-8C13-445023B43715}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8DDC6D0E-B790-489A-8C13-445023B43715}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8DDC6D0E-B790-489A-8C13-445023B43715}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FA10773E-E2D4-481D-9F8C-7987DDF32546}
+	EndGlobalSection
+EndGlobal
