@@ -81,33 +81,30 @@ namespace AssemblyRebuilder
             foreach (TypeDef typeDef in AssemblyDefine.ManifestModule.GetTypes())
                 foreach (MethodDef methodDef in typeDef.Methods)
                 {
-                    methodSig = methodDef.Signature as MethodSig;
-                    if (methodSig == null)
-                        continue;
-                    else
+                    if (!methodDef.IsStatic)
+                        break;
+                    methodSig = (MethodSig)methodDef.Signature;
+                    switch (methodSig.Params.Count)
                     {
-                        switch (methodSig.Params.Count)
-                        {
-                            case 0:
+                        case 0:
+                            break;
+                        case 1:
+                            if (methodSig.Params[0].FullName == "System.String[]")
                                 break;
-                            case 1:
-                                if (methodSig.Params[0].FullName == "System.String[]")
-                                    break;
-                                else
-                                    continue;
-                            default:
+                            else
                                 continue;
-                        }
-                        switch (methodSig.RetType.FullName)
-                        {
-                            case "System.Void":
-                            case "System.Integer":
-                                break;
-                            default:
-                                continue;
-                        }
-                        cb_EntryPoint.Items.Add(methodDef);
+                        default:
+                            continue;
                     }
+                    switch (methodSig.RetType.FullName)
+                    {
+                        case "System.Void":
+                        case "System.Integer":
+                            break;
+                        default:
+                            continue;
+                    }
+                    cb_EntryPoint.Items.Add(methodDef);
                 }
             ManagedEntryPoint = AssemblyDefine.ManifestModule.ManagedEntryPoint;
             if (ManagedEntryPoint == null)
