@@ -74,8 +74,8 @@ namespace AssemblyRebuilder
                 bt_Rebuild.Enabled = false;
                 return;
             }
-            LoadAllEntryPoints();
             LoadManifestModuleKind();
+            LoadAllEntryPoints();
         }
 
         private void LoadAllEntryPoints()
