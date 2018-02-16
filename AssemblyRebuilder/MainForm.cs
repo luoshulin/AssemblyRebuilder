@@ -12,7 +12,7 @@ namespace AssemblyRebuilder
 
         public string AssemblyPath { get; set; }
 
-        public AssemblyDef AssemblyDefine { get; set; }
+        public ModuleDef ManifestModule { get; set; }
 
         public IManagedEntryPoint ManagedEntryPoint { get; set; }
 
@@ -58,8 +58,8 @@ namespace AssemblyRebuilder
         {
             try
             {
-                AssemblyDefine = AssemblyDef.Load(AssemblyPath);
-                cmb_EntryPoint.Enabled = true;
+                ManifestModule = ModuleDefMD.Load(AssemblyPath);
+                //cmb_EntryPoint.Enabled = true; 被cmb_EntryPoint.Enabled = MustHasManagedEntryPoint();替代
                 chk_NoStaticConstructor.Enabled = true;
                 cmb_ManifestModuleKind.Enabled = true;
                 bt_Rebuild.Enabled = true;
@@ -67,7 +67,7 @@ namespace AssemblyRebuilder
             catch
             {
                 MessageBox.Show("无效程序集，请重新选定路径", ProgramName);
-                AssemblyDefine = null;
+                ManifestModule = null;
                 cmb_EntryPoint.Enabled = false;
                 chk_NoStaticConstructor.Enabled = false;
                 cmb_ManifestModuleKind.Enabled = false;
@@ -86,7 +86,9 @@ namespace AssemblyRebuilder
             MethodSig methodSig;
 
             cmb_EntryPoint.Items.Clear();
-            foreach (TypeDef typeDef in AssemblyDefine.ManifestModule.GetTypes())
+            if (!MustHasManagedEntryPoint())
+                return;
+            foreach (TypeDef typeDef in ManifestModule.GetTypes())
                 foreach (MethodDef methodDef in typeDef.Methods)
                 {
                     if (!methodDef.IsStatic)
@@ -118,7 +120,7 @@ namespace AssemblyRebuilder
                     }
                     cmb_EntryPoint.Items.Add(methodDef);
                 }
-            ManagedEntryPoint = AssemblyDefine.ManifestModule.ManagedEntryPoint;
+            ManagedEntryPoint = ManifestModule.ManagedEntryPoint;
             if (ManagedEntryPoint == null)
                 MessageBox.Show("检测到无效的入口点，请在下拉列表中重新选择一个入口点！", ProgramName);
             else
@@ -127,13 +129,19 @@ namespace AssemblyRebuilder
 
         private void LoadManifestModuleKind()
         {
-            ManifestModuleKind = AssemblyDefine.ManifestModule.Kind;
+            ManifestModuleKind = ManifestModule.Kind;
             cmb_ManifestModuleKind.SelectedItem = ManifestModuleKind;
+            cmb_EntryPoint.Enabled = MustHasManagedEntryPoint();
+        }
+
+        private bool MustHasManagedEntryPoint()
+        {
+            return ManifestModuleKind != ModuleKind.Dll && ManifestModuleKind != ModuleKind.NetModule;
         }
 
         private void Rebuild()
         {
-            if (ManagedEntryPoint == null && MessageBox.Show("未选择入口点，是否重建？", ProgramName, MessageBoxButtons.YesNo) != DialogResult.Yes)
+            if (MustHasManagedEntryPoint() && ManagedEntryPoint == null && MessageBox.Show("未选择入口点，是否重建？", ProgramName, MessageBoxButtons.YesNo) != DialogResult.Yes)
                 return;
 
             string extension;
@@ -142,9 +150,9 @@ namespace AssemblyRebuilder
             extension = Path.GetExtension(AssemblyPath);
             newAssemblyPath = AssemblyPath.Substring(0, AssemblyPath.Length - extension.Length);
             newAssemblyPath = $"{newAssemblyPath}_Rebuilded{extension}";
-            AssemblyDefine.ManifestModule.ManagedEntryPoint = ManagedEntryPoint;
-            AssemblyDefine.ManifestModule.Kind = ManifestModuleKind;
-            AssemblyDefine.Write(newAssemblyPath);
+            ManifestModule.ManagedEntryPoint = ManagedEntryPoint;
+            ManifestModule.Kind = ManifestModuleKind;
+            ManifestModule.Write(newAssemblyPath);
             MessageBox.Show("重建成功", ProgramName);
         }
     }
