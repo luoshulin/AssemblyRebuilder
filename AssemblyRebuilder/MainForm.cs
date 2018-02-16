@@ -21,11 +21,12 @@ namespace AssemblyRebuilder
         public MainForm()
         {
             InitializeComponent();
+            Text += $" v{Application.ProductVersion}";
             tb_AssemblyPath.DataBindings.Add("Text", this, "AssemblyPath", true, DataSourceUpdateMode.OnPropertyChanged);
-            cb_EntryPoint.DataBindings.Add("SelectedItem", this, "ManagedEntryPoint", true, DataSourceUpdateMode.OnPropertyChanged);
+            cmb_EntryPoint.DataBindings.Add("SelectedItem", this, "ManagedEntryPoint", true, DataSourceUpdateMode.OnPropertyChanged);
             for (int i = 0; i < 4; i++)
-                cb_ManifestModuleKind.Items.Add((ModuleKind)i);
-            cb_ManifestModuleKind.DataBindings.Add("SelectedItem", this, "ManifestModuleKind", true, DataSourceUpdateMode.OnPropertyChanged);
+                cmb_ManifestModuleKind.Items.Add((ModuleKind)i);
+            cmb_ManifestModuleKind.DataBindings.Add("SelectedItem", this, "ManifestModuleKind", true, DataSourceUpdateMode.OnPropertyChanged);
         }
 
         public MainForm(string assemblyPath) : this()
@@ -43,6 +44,11 @@ namespace AssemblyRebuilder
             LoadAssembly();
         }
 
+        private void chk_NoStaticConstructor_CheckedChanged(object sender, EventArgs e)
+        {
+            LoadAllEntryPoints();
+        }
+
         private void bt_Rebuild_Click(object sender, EventArgs e)
         {
             Rebuild();
@@ -53,16 +59,18 @@ namespace AssemblyRebuilder
             try
             {
                 AssemblyDefine = AssemblyDef.Load(AssemblyPath);
-                cb_EntryPoint.Enabled = true;
-                cb_ManifestModuleKind.Enabled = true;
+                cmb_EntryPoint.Enabled = true;
+                chk_NoStaticConstructor.Enabled = true;
+                cmb_ManifestModuleKind.Enabled = true;
                 bt_Rebuild.Enabled = true;
             }
             catch
             {
                 MessageBox.Show("无效程序集，请重新选定路径", ProgramName);
                 AssemblyDefine = null;
-                cb_EntryPoint.Enabled = false;
-                cb_ManifestModuleKind.Enabled = false;
+                cmb_EntryPoint.Enabled = false;
+                chk_NoStaticConstructor.Enabled = false;
+                cmb_ManifestModuleKind.Enabled = false;
                 bt_Rebuild.Enabled = false;
                 return;
             }
@@ -72,16 +80,20 @@ namespace AssemblyRebuilder
 
         private void LoadAllEntryPoints()
         {
-            if (cb_EntryPoint.Enabled == false)
+            if (cmb_EntryPoint.Enabled == false)
                 return;
 
             MethodSig methodSig;
 
-            cb_EntryPoint.Items.Clear();
+            cmb_EntryPoint.Items.Clear();
             foreach (TypeDef typeDef in AssemblyDefine.ManifestModule.GetTypes())
                 foreach (MethodDef methodDef in typeDef.Methods)
                 {
                     if (!methodDef.IsStatic)
+                        break;
+                    if (methodDef.IsGetter || methodDef.IsSetter)
+                        break;
+                    if (chk_NoStaticConstructor.Checked && methodDef.IsStaticConstructor)
                         break;
                     methodSig = (MethodSig)methodDef.Signature;
                     switch (methodSig.Params.Count)
@@ -99,24 +111,24 @@ namespace AssemblyRebuilder
                     switch (methodSig.RetType.FullName)
                     {
                         case "System.Void":
-                        case "System.Integer":
+                        case "System.Int32":
                             break;
                         default:
                             continue;
                     }
-                    cb_EntryPoint.Items.Add(methodDef);
+                    cmb_EntryPoint.Items.Add(methodDef);
                 }
             ManagedEntryPoint = AssemblyDefine.ManifestModule.ManagedEntryPoint;
             if (ManagedEntryPoint == null)
                 MessageBox.Show("检测到无效的入口点，请在下拉列表中重新选择一个入口点！", ProgramName);
             else
-                cb_EntryPoint.SelectedItem = ManagedEntryPoint;
+                cmb_EntryPoint.SelectedItem = ManagedEntryPoint;
         }
 
         private void LoadManifestModuleKind()
         {
             ManifestModuleKind = AssemblyDefine.ManifestModule.Kind;
-            cb_ManifestModuleKind.SelectedItem = ManifestModuleKind;
+            cmb_ManifestModuleKind.SelectedItem = ManifestModuleKind;
         }
 
         private void Rebuild()
