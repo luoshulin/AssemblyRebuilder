@@ -28,89 +28,89 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.tb_AssemblyPath = new System.Windows.Forms.TextBox();
-            this.bt_OpenAssembly = new System.Windows.Forms.Button();
-            this.ofd_OpenAssembly = new System.Windows.Forms.OpenFileDialog();
-            this.cmb_EntryPoint = new System.Windows.Forms.ComboBox();
-            this.bt_Rebuild = new System.Windows.Forms.Button();
-            this.cmb_ManifestModuleKind = new System.Windows.Forms.ComboBox();
-            this.chk_NoStaticConstructor = new System.Windows.Forms.CheckBox();
+            this.tbAssemblyPath = new System.Windows.Forms.TextBox();
+            this.btOpenAssembly = new System.Windows.Forms.Button();
+            this.ofdOpenAssembly = new System.Windows.Forms.OpenFileDialog();
+            this.cmbEntryPoint = new System.Windows.Forms.ComboBox();
+            this.btRebuild = new System.Windows.Forms.Button();
+            this.cmbManifestModuleKind = new System.Windows.Forms.ComboBox();
+            this.chkNoStaticConstructor = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
-            // tb_AssemblyPath
+            // tbAssemblyPath
             // 
-            this.tb_AssemblyPath.Location = new System.Drawing.Point(12, 13);
-            this.tb_AssemblyPath.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.tb_AssemblyPath.Name = "tb_AssemblyPath";
-            this.tb_AssemblyPath.Size = new System.Drawing.Size(965, 23);
-            this.tb_AssemblyPath.TabIndex = 0;
+            this.tbAssemblyPath.Location = new System.Drawing.Point(12, 13);
+            this.tbAssemblyPath.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.tbAssemblyPath.Name = "tbAssemblyPath";
+            this.tbAssemblyPath.Size = new System.Drawing.Size(965, 23);
+            this.tbAssemblyPath.TabIndex = 0;
             // 
-            // bt_OpenAssembly
+            // btOpenAssembly
             // 
-            this.bt_OpenAssembly.Location = new System.Drawing.Point(983, 13);
-            this.bt_OpenAssembly.Name = "bt_OpenAssembly";
-            this.bt_OpenAssembly.Size = new System.Drawing.Size(98, 23);
-            this.bt_OpenAssembly.TabIndex = 1;
-            this.bt_OpenAssembly.Text = "选择程序集...";
-            this.bt_OpenAssembly.UseVisualStyleBackColor = true;
-            this.bt_OpenAssembly.Click += new System.EventHandler(this.bt_OpenAssembly_Click);
+            this.btOpenAssembly.Location = new System.Drawing.Point(983, 13);
+            this.btOpenAssembly.Name = "btOpenAssembly";
+            this.btOpenAssembly.Size = new System.Drawing.Size(98, 23);
+            this.btOpenAssembly.TabIndex = 1;
+            this.btOpenAssembly.Text = "选择程序集...";
+            this.btOpenAssembly.UseVisualStyleBackColor = true;
+            this.btOpenAssembly.Click += new System.EventHandler(this.btOpenAssembly_Click);
             // 
-            // cmb_EntryPoint
+            // cmbEntryPoint
             // 
-            this.cmb_EntryPoint.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmb_EntryPoint.Enabled = false;
-            this.cmb_EntryPoint.FormattingEnabled = true;
-            this.cmb_EntryPoint.Location = new System.Drawing.Point(12, 43);
-            this.cmb_EntryPoint.Name = "cmb_EntryPoint";
-            this.cmb_EntryPoint.Size = new System.Drawing.Size(718, 25);
-            this.cmb_EntryPoint.TabIndex = 2;
+            this.cmbEntryPoint.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbEntryPoint.Enabled = false;
+            this.cmbEntryPoint.FormattingEnabled = true;
+            this.cmbEntryPoint.Location = new System.Drawing.Point(12, 43);
+            this.cmbEntryPoint.Name = "cmbEntryPoint";
+            this.cmbEntryPoint.Size = new System.Drawing.Size(718, 25);
+            this.cmbEntryPoint.TabIndex = 2;
             // 
-            // bt_Rebuild
+            // btRebuild
             // 
-            this.bt_Rebuild.Enabled = false;
-            this.bt_Rebuild.Location = new System.Drawing.Point(983, 42);
-            this.bt_Rebuild.Name = "bt_Rebuild";
-            this.bt_Rebuild.Size = new System.Drawing.Size(98, 27);
-            this.bt_Rebuild.TabIndex = 3;
-            this.bt_Rebuild.Text = "重建";
-            this.bt_Rebuild.UseVisualStyleBackColor = true;
-            this.bt_Rebuild.Click += new System.EventHandler(this.bt_Rebuild_Click);
+            this.btRebuild.Enabled = false;
+            this.btRebuild.Location = new System.Drawing.Point(983, 42);
+            this.btRebuild.Name = "btRebuild";
+            this.btRebuild.Size = new System.Drawing.Size(98, 27);
+            this.btRebuild.TabIndex = 3;
+            this.btRebuild.Text = "重建";
+            this.btRebuild.UseVisualStyleBackColor = true;
+            this.btRebuild.Click += new System.EventHandler(this.btRebuild_Click);
             // 
-            // cmb_ManifestModuleKind
+            // cmbManifestModuleKind
             // 
-            this.cmb_ManifestModuleKind.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmb_ManifestModuleKind.Enabled = false;
-            this.cmb_ManifestModuleKind.FormattingEnabled = true;
-            this.cmb_ManifestModuleKind.Location = new System.Drawing.Point(853, 43);
-            this.cmb_ManifestModuleKind.Name = "cmb_ManifestModuleKind";
-            this.cmb_ManifestModuleKind.Size = new System.Drawing.Size(124, 25);
-            this.cmb_ManifestModuleKind.TabIndex = 4;
+            this.cmbManifestModuleKind.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbManifestModuleKind.Enabled = false;
+            this.cmbManifestModuleKind.FormattingEnabled = true;
+            this.cmbManifestModuleKind.Location = new System.Drawing.Point(853, 43);
+            this.cmbManifestModuleKind.Name = "cmbManifestModuleKind";
+            this.cmbManifestModuleKind.Size = new System.Drawing.Size(124, 25);
+            this.cmbManifestModuleKind.TabIndex = 4;
             // 
-            // chk_NoStaticConstructor
+            // chkNoStaticConstructor
             // 
-            this.chk_NoStaticConstructor.AutoSize = true;
-            this.chk_NoStaticConstructor.Checked = true;
-            this.chk_NoStaticConstructor.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chk_NoStaticConstructor.Enabled = false;
-            this.chk_NoStaticConstructor.Location = new System.Drawing.Point(736, 45);
-            this.chk_NoStaticConstructor.Name = "chk_NoStaticConstructor";
-            this.chk_NoStaticConstructor.Size = new System.Drawing.Size(111, 21);
-            this.chk_NoStaticConstructor.TabIndex = 5;
-            this.chk_NoStaticConstructor.Text = "过滤静态构造器";
-            this.chk_NoStaticConstructor.UseVisualStyleBackColor = true;
-            this.chk_NoStaticConstructor.CheckedChanged += new System.EventHandler(this.chk_NoStaticConstructor_CheckedChanged);
+            this.chkNoStaticConstructor.AutoSize = true;
+            this.chkNoStaticConstructor.Checked = true;
+            this.chkNoStaticConstructor.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkNoStaticConstructor.Enabled = false;
+            this.chkNoStaticConstructor.Location = new System.Drawing.Point(736, 45);
+            this.chkNoStaticConstructor.Name = "chkNoStaticConstructor";
+            this.chkNoStaticConstructor.Size = new System.Drawing.Size(111, 21);
+            this.chkNoStaticConstructor.TabIndex = 5;
+            this.chkNoStaticConstructor.Text = "过滤静态构造器";
+            this.chkNoStaticConstructor.UseVisualStyleBackColor = true;
+            this.chkNoStaticConstructor.CheckedChanged += new System.EventHandler(this.chkNoStaticConstructor_CheckedChanged);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1093, 82);
-            this.Controls.Add(this.chk_NoStaticConstructor);
-            this.Controls.Add(this.cmb_ManifestModuleKind);
-            this.Controls.Add(this.bt_Rebuild);
-            this.Controls.Add(this.cmb_EntryPoint);
-            this.Controls.Add(this.bt_OpenAssembly);
-            this.Controls.Add(this.tb_AssemblyPath);
+            this.Controls.Add(this.chkNoStaticConstructor);
+            this.Controls.Add(this.cmbManifestModuleKind);
+            this.Controls.Add(this.btRebuild);
+            this.Controls.Add(this.cmbEntryPoint);
+            this.Controls.Add(this.btOpenAssembly);
+            this.Controls.Add(this.tbAssemblyPath);
             this.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -125,12 +125,12 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox tb_AssemblyPath;
-        private System.Windows.Forms.Button bt_OpenAssembly;
-        private System.Windows.Forms.OpenFileDialog ofd_OpenAssembly;
-        private System.Windows.Forms.ComboBox cmb_EntryPoint;
-        private System.Windows.Forms.Button bt_Rebuild;
-        private System.Windows.Forms.ComboBox cmb_ManifestModuleKind;
-        private System.Windows.Forms.CheckBox chk_NoStaticConstructor;
+        private System.Windows.Forms.TextBox tbAssemblyPath;
+        private System.Windows.Forms.Button btOpenAssembly;
+        private System.Windows.Forms.OpenFileDialog ofdOpenAssembly;
+        private System.Windows.Forms.ComboBox cmbEntryPoint;
+        private System.Windows.Forms.Button btRebuild;
+        private System.Windows.Forms.ComboBox cmbManifestModuleKind;
+        private System.Windows.Forms.CheckBox chkNoStaticConstructor;
     }
 }
