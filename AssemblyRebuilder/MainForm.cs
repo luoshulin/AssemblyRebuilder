@@ -59,7 +59,7 @@ namespace AssemblyRebuilder
             try
             {
                 ManifestModule = ModuleDefMD.Load(AssemblyPath);
-                //cmb_EntryPoint.Enabled = true; 被cmb_EntryPoint.Enabled = MustHasManagedEntryPoint();替代
+                //cmbEntryPoint.Enabled = true; 被cmbEntryPoint.Enabled = MustHasManagedEntryPoint();替代
                 chkNoStaticConstructor.Enabled = true;
                 cmbManifestModuleKind.Enabled = true;
                 btRebuild.Enabled = true;
