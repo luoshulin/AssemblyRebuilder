@@ -6,7 +6,7 @@ using dnlib.DotNet;
 
 namespace AssemblyRebuilder
 {
-    public partial class MainForm : Form
+    internal partial class MainForm : Form
     {
         private static readonly string ProgramName = Assembly.GetExecutingAssembly().GetName().Name;
 
@@ -21,12 +21,14 @@ namespace AssemblyRebuilder
         public MainForm()
         {
             InitializeComponent();
-            Text += $" v{Application.ProductVersion}";
+            cmbManifestModuleKind.SelectedIndexChanged += (object sender, EventArgs e) => { ManifestModuleKind = (ModuleKind)cmbManifestModuleKind.SelectedItem; LoadAllEntryPoints(); };
+            Text = $"{Application.ProductName} v{Application.ProductVersion}";
             tbAssemblyPath.DataBindings.Add("Text", this, "AssemblyPath", true, DataSourceUpdateMode.OnPropertyChanged);
-            cmbEntryPoint.DataBindings.Add("SelectedItem", this, "ManagedEntryPoint", true, DataSourceUpdateMode.OnPropertyChanged);
+            //cmbEntryPoint.DataBindings.Add("SelectedItem", this, "ManagedEntryPoint", true, DataSourceUpdateMode.OnPropertyChanged);
+            cmbEntryPoint.SelectedIndexChanged += (object sender, EventArgs e) => ManagedEntryPoint = ((MethodDefWrapper)cmbEntryPoint.SelectedItem).MethodDefine;
             for (int i = 0; i < 4; i++)
                 cmbManifestModuleKind.Items.Add((ModuleKind)i);
-            cmbManifestModuleKind.DataBindings.Add("SelectedItem", this, "ManifestModuleKind", true, DataSourceUpdateMode.OnPropertyChanged);
+            //cmbManifestModuleKind.DataBindings.Add("SelectedItem", this, "ManifestModuleKind", true, DataSourceUpdateMode.OnPropertyChanged);
         }
 
         public MainForm(string assemblyPath) : this()
@@ -80,13 +82,11 @@ namespace AssemblyRebuilder
 
         private void LoadAllEntryPoints()
         {
-            if (cmbEntryPoint.Enabled == false)
-                return;
-
             MethodSig methodSig;
 
             cmbEntryPoint.Items.Clear();
-            if (!MustHasManagedEntryPoint())
+            cmbEntryPoint.Enabled = MustHasManagedEntryPoint();
+            if (!cmbEntryPoint.Enabled)
                 return;
             foreach (TypeDef typeDef in ManifestModule.GetTypes())
                 foreach (MethodDef methodDef in typeDef.Methods)
@@ -118,7 +118,7 @@ namespace AssemblyRebuilder
                         default:
                             continue;
                     }
-                    cmbEntryPoint.Items.Add(methodDef);
+                    cmbEntryPoint.Items.Add((MethodDefWrapper)methodDef);
                 }
             ManagedEntryPoint = ManifestModule.ManagedEntryPoint;
             if (ManagedEntryPoint == null)
@@ -131,7 +131,6 @@ namespace AssemblyRebuilder
         {
             ManifestModuleKind = ManifestModule.Kind;
             cmbManifestModuleKind.SelectedItem = ManifestModuleKind;
-            cmbEntryPoint.Enabled = MustHasManagedEntryPoint();
         }
 
         private bool MustHasManagedEntryPoint()

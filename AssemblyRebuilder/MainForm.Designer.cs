@@ -117,7 +117,6 @@
             this.MaximizeBox = false;
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "AssemblyRebuilder";
             this.ResumeLayout(false);
             this.PerformLayout();
 
